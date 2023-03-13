@@ -23,16 +23,18 @@ const Todo = () => {
         return () => clearInterval(interval)
       }, []);
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:8000/my-list')
-    //     .then(response => {
-    //         setList(response.data)
-    //         console.log(response.data)
-    //     })
-    //     .catch(error => {
-    //         console.log(error)
-    //     })
-    // } ,[])
+
+
+     function deleteTask(taskId) {
+        axios.delete(`http://localhost:8000/my-list/${taskId}`)
+        .then(response => {
+            setList(list.filter(task => task.id !== taskId))
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+     }
 
     return (
         <>
@@ -43,13 +45,17 @@ const Todo = () => {
                     {list.length > 0 ? (
                             list.map(task => {
                                 return (
-                                <div key={task.taskID} className='task-item'>
+                                <div key={task.id} className='task-item'>
                                     <h1 className='task-title'>{task.taskName}</h1>
                                     <hr/>
-                                    <p className='task-duration'>Duração: {task.taskDuration}</p>
+                                    <p className='task-duration'>Duration: {task.taskDuration}</p>
                                     <div className='icons-box'>
-                                    <i className='done-icon'><DoneIcon fontSize='large'/></i>
-                                    <i className='delete-icon'><DeleteIcon fontSize='large'/></i>
+                                    <i className='done-icon' onClick={alert}>
+                                        <DoneIcon fontSize='large' sx={{color: 'var(--primaryColor)', "&:hover": {color: 'green'}}}/>
+                                    </i>
+                                    <i className='delete-icon' onClick={() => {deleteTask(task.id)}}>
+                                        <DeleteIcon fontSize='large' sx={{color: 'var(--primaryColor)', "&:hover": {color: 'red'}}}/>
+                                    </i>
                                     </div>
                                 </div>)
                             })

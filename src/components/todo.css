@@ -55,7 +55,6 @@ p {
 }
 
 i {
-    color: var(--primaryColor);
     cursor: pointer;
     padding: 0 20px;
 }

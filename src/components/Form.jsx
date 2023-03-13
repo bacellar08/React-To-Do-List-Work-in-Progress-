@@ -1,31 +1,49 @@
+import { useState } from 'react'
+import axios from 'axios'
 import './form.css'
-import $ from 'jquery'
 
 
 export default function Form() {
+
+    const [taskName, setTaskName] = useState('')
+    const [taskDuration, setTaskDuration] = useState('')
 
     function handleTask(e) {
         e.preventDefault()
 
         const formData = {
-            taskName: $('.taskName').val(),
-            taskDuration: $('.taskDuration').val(),
-            taskID: Math.random() +1
+            taskName: taskName,
+            taskDuration: taskDuration,
+            id: Math.random().toFixed(10) * 10000000000
         }
 
-        fetch('http://localhost:8000/my-list', {
-            method: 'POST',
+        axios.post('http://localhost:8000/my-list', formData, {
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
+                'Content-type': 'application/json'
+            }
         })
-
-        $('.taskName').val('')
-        $('.taskDuration').val('')
+        .then((response) => {
+            console.log(response.data)
+            setTaskName('')
+            setTaskDuration('')
+        })
+        .catch((error) => {
+            console.log(error)
+        })
         
-    }
+    //     fetch('http://localhost:8000/my-list', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(formData)
+    //     })
 
+    //     setTaskName('')
+    //     setTaskDuration('')
+        
+    // }
+    }
 
     return (
         <>
@@ -40,14 +58,16 @@ export default function Form() {
                     name='taskname'
                     type="text"
                     placeholder='Go to gym'
-                    className='taskName' />
+                    className='taskName'
+                    onChange={(e) => setTaskName(e.target.value)} />
                 <label
                     htmlFor="taskDuration">Duration: </label>
                 <input
-                    name='taskDUration'
+                    name='taskDuration'
                     type="text"
                     placeholder='2 hours'
-                    className='taskDuration' />
+                    className='taskDuration'
+                    onChange={(e) => setTaskDuration(e.target.value)}/>
 
                 <input
                     name='submit'

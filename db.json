@@ -1,10 +1,19 @@
 {
   "my-list": [
     {
-      "taskName": "Study",
-      "taskDuration": "40 min",
-      "taskID": 1.7374976383083856,
-      "id": 1
+      "taskName": "Walk outside",
+      "taskDuration": "45 min",
+      "id": 2877437129
+    },
+    {
+      "taskName": "Have lunch",
+      "taskDuration": "20 min",
+      "id": 6289453787
+    },
+    {
+      "taskName": "Delete me",
+      "taskDuration": "Quick",
+      "id": 6687085095.999999
     }
   ]
 }
