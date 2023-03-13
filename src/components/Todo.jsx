@@ -18,7 +18,7 @@ const Todo = () => {
 
         const interval = setInterval(() => {
             fetchData()
-        }, 1000)
+        }, 2000)
 
         return () => clearInterval(interval)
       }, []);
